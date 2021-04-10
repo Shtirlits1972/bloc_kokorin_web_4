@@ -4,6 +4,7 @@ import 'package:bloc_kokorin_web_4/bloc/user_bloc.dart';
 import 'package:bloc_kokorin_web_4/bloc/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class UserList extends StatelessWidget {
   const UserList({Key key}) : super(key: key);
@@ -23,10 +24,26 @@ class UserList extends StatelessWidget {
           );
         } else if (state is UserLoadingState) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitFadingCircle(
+              itemBuilder: (BuildContext context, int index) {
+                return DecoratedBox(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: index.isEven ? Colors.blueGrey[100] : Colors.grey,
+                  ),
+                );
+              },
+            ),
+
+            //CircularProgressIndicator(),
           );
         } else if (state is UserLoadedState) {
-          return ListView.builder(
+          return ListView.separated(
+            separatorBuilder: (BuildContext context, int index) => Divider(
+              height: 1,
+              color: Colors.black,
+              thickness: 1,
+            ),
             itemCount: state.loadedUser.length,
             itemBuilder: (context, index) => Container(
               color: (index % 2 == 0)

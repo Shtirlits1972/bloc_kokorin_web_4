@@ -8,7 +8,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UsersReposytory usersRepository;
   UserBloc({this.usersRepository}) : assert(usersRepository != null);
   @override
-  // TODO: implement initialState
   get initialState => UserEmptyState();
 
   @override
